@@ -1,7 +1,7 @@
-import { applyMiddleware, compose, createStore } from "redux";
+import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import thunk from "redux-thunk";
-import { rootReducer } from "./reducers";
 
+import { authReducer } from "./auth/reducer";
 
 // devtools for debugging in dev environment.
 const devTools =
@@ -12,6 +12,8 @@ const devTools =
     : (a) => a;
 
 export const store = createStore(
-  rootReducer,
+  combineReducers({
+    auth: authReducer,
+  }),
   compose(applyMiddleware(thunk), devTools)
 );
